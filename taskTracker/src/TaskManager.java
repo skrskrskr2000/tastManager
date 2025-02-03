@@ -2,7 +2,7 @@ import java.util.HashMap;
 public class TaskManager {
     HashMap<Integer, Task> taskList = new HashMap<>(); // Таблица для хранения задач
     HashMap<Integer, Epic>  epicList = new HashMap<>(); // Таблица для хранения эпиков
-    HashMap<Integer, SubTask> subTaskList = new HashMap<>(); // Таблица для хранения подзадач
+
 
     private Integer index = 0; // Индекс конкретной задачи/подзадачи
 
@@ -22,10 +22,11 @@ public class TaskManager {
         index++;
     }
 
-    public void addSubTask(SubTask subTask){
-        subTaskList.put(index,subTask);
+    public void addSubTask(Epic epic,SubTask subTask){
+        epic.addSubTask(index,subTask);
         index++;
     }
+
 
     // Удаление
     public void RemoveTask(Integer _index){
@@ -36,9 +37,11 @@ public class TaskManager {
         epicList.remove(_index);
     }
 
-    public void RemoveSubTask(Integer _index){
-        subTaskList.remove(_index);
+    public HashMap<Integer, Task> getTaskList() {
+        return taskList;
     }
 
-
+    public HashMap<Integer, Epic> getEpicList() {
+        return epicList;
+    }
 }

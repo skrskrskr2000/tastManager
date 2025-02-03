@@ -2,49 +2,103 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
+import java.util.Scanner;
+
 public class Main {
+    public static void printMenu(){
+        System.out.println("Что вы хотите сделать?");
+        System.out.println("Добавить задачу - 1;");
+        System.out.println("Добавить эпик - 2;");
+        System.out.println("Добавить подзадачу - 3.");
+    }
     public static void main(String[] args) {
-//        System.out.println("Hello world!");
-//        Bird b1 = new Bird();
-//        Bird b2 = new Bird();
-//        Bird b3 = new Bird();
-//        System.out.println("Количество птиц - "+Bird.count);
-//
-//        int i = 100;
-//        // Будет вызван метод valueOf(int i)
-//        System.out.println(String.valueOf(i));
-//
-//        double d = 100;
-//        // Будет вызван метод valueOf(double d)
-//        // Это можно заметить по выводу значения - оно будет отличаться от вывода переменной i
-//        System.out.println(String.valueOf(d));
-//
-//        boolean b = true;
-//        // Будет вызван метод valueOf(boolean b)
-//        System.out.println(String.valueOf(b));
-//
-//        Boolean o = null;
-//        // Будет вызван метод valueOf(Object obj), т.к. Boolean - это объект
-//        System.out.println(String.valueOf(o));
-        //Task t = new Task("Задача 1");
-        //t.setProcessDone(ProcessReadness.IN_PROGRESS);
-//        SubTask st1 = new SubTask("Подзадача 1");
-//        //System.out.println(t.getProcessDone());
-//        SubTask st2 = new SubTask("Подзадача 2");
-//
-//        System.out.println(t.hashCode());
-//        System.out.println(st1.hashCode());
-//        System.out.println(st2.hashCode());
+        System.out.println("Начало тестирования: ");
 
+        TaskManager taskManager = new TaskManager();
+
+        while(true) {
+            Scanner scanner = new Scanner(System.in);
+            printMenu();
+
+            int work = scanner.nextInt();
+            System.out.println("Вы ввели " + work);
+
+            switch (work) {
+                case (1): {
+                    System.out.println("Добавление задачи: ");
+                    Task task1 = new Task("Задача 1");
+                    Task task2 = new Task("Задача 2");
+                    Task task3 = new Task("Задача 3");
+
+                    taskManager.addTask(task1);
+                    taskManager.addTask(task2);
+                    taskManager.addTask(task3);
+
+                    System.out.println("Список задач: ");
+
+                    for (Integer key  : taskManager.getTaskList().keySet()){
+                        System.out.print(taskManager.getTaskList().get(key).getTaskName());
+                        System.out.println(" с ключем : "+key);
+                    }
+
+
+                    System.out.println("Успешно!");
+                    break;
+                }
+                case (2): {
+                    System.out.println("Добавление эпика: ");
+
+                    Epic epic1 = new Epic("Эпик 1");
+                    Epic epic2 = new Epic("Эпик 2");
+                    Epic epic3 = new Epic("Эпик 3");
+
+                    taskManager.addEpic(epic1);
+                    taskManager.addEpic(epic2);
+                    taskManager.addEpic(epic3);
+
+                    System.out.println("Список эпиков: ");
+
+                    for (Integer key  : taskManager.getEpicList().keySet()){
+                        System.out.print(taskManager.getEpicList().get(key).getTaskName());
+                        System.out.println(" с ключем : "+key);
+                    }
+                    System.out.println("Успешно!");
+                    break;
+                }
+                case (3): {
+                    System.out.println("Добавление подзадачи: ");
+
+                    System.out.println("Список доступных эпиков: ");
+
+                    for (Integer key  : taskManager.getEpicList().keySet()){
+                        System.out.print(taskManager.getEpicList().get(key).getTaskName());
+                        System.out.println(" с ключем : "+key);
+                    }
+
+                    SubTask subTask1 = new SubTask("Подзадача 1",3);
+                    SubTask subTask2 = new SubTask("Подзадача 2",3);
+                    SubTask subTask3 = new SubTask("Подзадача 3",3);
+
+                    taskManager.addSubTask(taskManager.getEpicList().get(3),subTask1);
+                    taskManager.addSubTask(taskManager.getEpicList().get(3),subTask2);
+                    taskManager.addSubTask(taskManager.getEpicList().get(3),subTask3);
+
+                    for (Integer key  : taskManager.getEpicList().get(3).getSubTaskList().keySet()){
+                        System.out.print(taskManager.getEpicList().get(3).getSubTaskList().get(key).getTaskName());
+                        System.out.println(" с ключем : "+key);
+                    }
+
+
+                    break;
+                }
+                default: {
+                    System.out.println("Не знаю такой команды.");
+                    System.out.println("Конец тестирования.");
+                    return;
+                }
+            }
+        }
 
     }
-}
 
-
-class Bird{
-    static int count = 0;
-
-    public Bird() {
-        count++;
-    }
 }
