@@ -7,10 +7,6 @@ public class Task {
     private String taskName; // Навание задачи
     private String description; // Описание задачи
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public ProcessReadness getProcessDone() {
         return processDone;
     }
@@ -27,11 +23,27 @@ public class Task {
         this.taskName = taskName;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Task(String name) {
         this.taskName = name;
         this.processDone = ProcessReadness.NEW;
         this.description = "Описание";
     }
+
+    //Конструктор сразу с описанием
+    public Task(String name,String description) {
+        this.taskName = name;
+        this.processDone = ProcessReadness.NEW;
+        this.description = description;
+    }
+
 }
 enum ProcessReadness{ // Прогресс готовности в задаче
     NEW, // Новая
